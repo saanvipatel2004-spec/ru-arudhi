@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ========================================
+   RU ARUDHI OPENING ANIMATION
+======================================== */
+
+.arudhi-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  background: #fff5f0;
+}
+
+/* CENTER CONTENT */
+
+.arudhi-intro-content {
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  animation: arudhi-content-in 1s ease forwards;
+}
+
+.arudhi-intro-logo {
+  opacity: 0;
+  transform: scale(0.75);
+
+  animation: arudhi-logo-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.arudhi-intro-logo img {
+  object-fit: contain;
+}
+
+/* GOLD LINE */
+
+.arudhi-gold-line {
+  width: 0;
+  height: 1px;
+
+  margin-top: 18px;
+  margin-bottom: 18px;
+
+  background: #ebc76a;
+
+  animation: arudhi-line-grow 0.9s ease 0.45s forwards;
+}
+
+/* TITLE */
+
+.arudhi-intro-title {
+  opacity: 0;
+  transform: translateY(12px);
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+
+  color: #2a0d0d;
+
+  animation: arudhi-text-in 0.8s ease 0.65s forwards;
+}
+
+/* SUBTITLE */
+
+.arudhi-intro-subtitle {
+  opacity: 0;
+  transform: translateY(8px);
+
+  margin-top: 8px;
+
+  font-size: 0.8rem;
+  font-weight: 500;
+
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+
+  color: #f5a46e;
+
+  animation: arudhi-text-in 0.8s ease 0.85s forwards;
+}
+
+/* CURTAINS */
+
+.arudhi-curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  width: 51%;
+
+  z-index: 2;
+
+  background:
+    linear-gradient(90deg,
+      #210909,
+      #2a0d0d 45%,
+      #381010);
+
+  transition:
+    transform 1s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.arudhi-curtain-left {
+  left: 0;
+  transform: translateX(-101%);
+}
+
+.arudhi-curtain-right {
+  right: 0;
+  transform: translateX(101%);
+}
+
+/* Curtains briefly cover screen before opening */
+
+.arudhi-intro .arudhi-curtain-left {
+  animation: arudhi-left-enter 0.7s ease forwards;
+}
+
+.arudhi-intro .arudhi-curtain-right {
+  animation: arudhi-right-enter 0.7s ease forwards;
+}
+
+/* OPENING STATE */
+
+.arudhi-intro-opening .arudhi-curtain-left {
+  animation: none;
+  transform: translateX(-101%);
+}
+
+.arudhi-intro-opening .arudhi-curtain-right {
+  animation: none;
+  transform: translateX(101%);
+}
+
+.arudhi-intro-opening .arudhi-intro-content {
+  opacity: 0;
+
+  transform: scale(1.04);
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+/* ANIMATIONS */
+
+@keyframes arudhi-logo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes arudhi-line-grow {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 120px;
+  }
+}
+
+@keyframes arudhi-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes arudhi-left-enter {
+  from {
+    transform: translateX(-101%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes arudhi-right-enter {
+  from {
+    transform: translateX(101%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes arudhi-content-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 640px) {
+  .arudhi-intro-logo img {
+    width: 135px;
+    height: auto;
+  }
+
+  .arudhi-intro-title {
+    font-size: 2.25rem;
+  }
+
+  .arudhi-intro-subtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  .arudhi-intro {
+    display: none;
+  }
+}
